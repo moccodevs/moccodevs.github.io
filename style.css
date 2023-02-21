@@ -1,0 +1,121 @@
+#tabla{
+    text-align: center;
+    top:100px;
+    width:100%;
+    position:absolute;
+    align-items: center;
+    
+}
+.botonLimpiar,.check,.status{
+    margin-top: 10px;
+    text-align:justify;
+    max-width: 40%;
+    display:inline-table;
+}  
+body{
+    background-color: rgb(33, 33, 41);
+
+    
+}
+
+.nombres{
+    align-content: center;
+    border-radius: 20%;
+    background-color: black;
+    color: aquamarine;
+    position:relative;
+    max-inline-size: 10%;
+    max-width: 200%;
+    width:60px;
+    display:inline-block
+    
+}
+.inputs{
+    color-scheme:dark;
+    color: rgb(255, 255, 255);
+    margin-top: 15px;
+    margin-right: 15px;
+    max-width: 40%;
+    position:relative;
+    text-align: left;
+    width: 160px;
+    display:inline-flex;
+}
+.status{
+    color:#00722f;
+    width:45px;
+    text-align: center;
+}
+#cantidad{
+
+    margin-top: 0.2%;
+    width: 106px;
+}
+#cajaOC{
+    max-width: 80%;
+    display: inline-block;
+    position: relative;
+    width:100%;
+    padding-right:1%;
+    left:10%;
+    top:3%;
+    height:60px;
+    
+}
+button{
+    color-scheme: dark;
+    
+}
+#addgpu{
+    position:relative;
+    left:5%;
+    display: inline-block;
+    width:150px;
+}
+#navbar{
+    max-width: 100%;
+    left:0%;
+    text-align: left;
+    
+    background-color: rgb(51, 100, 100);
+    z-index: 2;
+    top:0px;
+    width:100%;
+    align-items: center;
+    position:fixed;
+    display:inline-flex;
+}
+#gpu{
+    z-index: 1;
+    text-align: center;
+    max-width: 80%;
+    width: 1150px;
+    display:inline-table;
+    position:relative;
+
+}
+
+#tabla{
+    position:absolute
+}
+
+/* Estilos para dispositivos móviles */
+@media only screen and (max-width: 600px) {
+    /* Cambiar el display a block para que se muestre uno debajo del otro */
+    .gpus{
+      display: grid;
+    }
+    /* Agregar márgenes y bordes para separar cada elemento */
+    td {
+      margin: 0;
+      border-bottom: 1px solid #eee;
+    }
+    /* Ocultar el encabezado de la tabla en dispositivos móviles */
+    thead {
+      display: none;
+    }
+    /* Agregar un estilo diferente para la primera columna (nombre de la GPU) */
+    td:first-of-type {
+      border-top: 1px solid #eee;
+    }
+  }
