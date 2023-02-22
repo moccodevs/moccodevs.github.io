@@ -120,8 +120,8 @@ function createElements(cantidad) {
         miDiv.appendChild(nuevaGPU.nombre);
         miDiv.appendChild(nuevaGPU.inputSetting.coff);
         miDiv.appendChild(nuevaGPU.inputSetting.coclk);
-        miDiv.appendChild(nuevaGPU.inputSetting.mmclk);
         miDiv.appendChild(nuevaGPU.inputSetting.mmoff);
+        miDiv.appendChild(nuevaGPU.inputSetting.mmclk);
         miDiv.appendChild(nuevaGPU.botonLimpiar);
         miDiv.appendChild(nuevaGPU.checkbox);
         miDiv.appendChild(nuevaGPU.status);
