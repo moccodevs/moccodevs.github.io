@@ -11,6 +11,7 @@ const green= `#00722f`;
 const stableColor=`black`;
 let finalOC=``;
 const MAXOC=100000;
+colorDestello=`#d183f0`;
 
 function limpiar(identificacion){
   let gpu = document.getElementById(identificacion);
@@ -136,12 +137,20 @@ function createElements(cantidad) {
         nuevaGPU.checkbox.disabled=true;
         colorear(nuevaGPU.id,stableColor);
         nuevaGPU.checkbox.addEventListener(`change`,function(){
+          let input=document.getElementById(`cajaOC`);
           if ((nuevaGPU.checkbox.checked)){
+              
+              input.style.backgroundColor=green;
+              setTimeout(()=>{
+              
+              input.style.backgroundColor=`gray`;
+              },300);
               nuevaGPU.status.style.backgroundColor = green;
               nuevaGPU.status.value=`OK!`;
               console.log(`nvtool ENABLED`);
               nuevaGPU.cargada=true;
               console.log(`gpu cargada`);
+              
           }
           else{
             nuevaGPU.status.value=`NO OC`;
@@ -297,26 +306,30 @@ function createFinalOC(checkfromgpu){
   checkfromgpu=checkedIdArray(checkfromgpu);
   let ocTextBox=document.getElementById(`cajaOC`);
   if (checkfromgpu.length>0){
-  for (let i=0;i<checkfromgpu.length;i++){
-    let gpuid=document.getElementById(`GPU${checkfromgpu[i]}`);
-    determinarOC(gpuid.id);
-    if ((i>0)&&(i<checkfromgpu.length)){
-      commandString=commandString+`&& `;
-    }
-    commandString=commandString+`nvtool -i `+checkfromgpu[i];
-    commandString=commandString+gpuid.nvtool;
-    };
-  finalOC=commandString;
-  
-  let echo=document.getElementById(`echocheck`);
-  if (echo.checked){
-    ocTextBox.value=`echo "`+finalOC+`" > /hive/miners/nv_oc.sh && chmod +x /hive/miners/nv_oc.sh`;
+      for (let i=0;i<checkfromgpu.length;i++){
+        let gpuid=document.getElementById(`GPU${checkfromgpu[i]}`);
+        determinarOC(gpuid.id);
+        if ((i>0)&&(i<checkfromgpu.length)){
+          commandString=commandString+`&& `;
+        }
+        commandString=commandString+`nvtool -i `+checkfromgpu[i];
+        commandString=commandString+gpuid.nvtool;
+        };
+      finalOC=commandString;
+      
+      let echo=document.getElementById(`echocheck`);
+      if (echo.checked){
+        ocTextBox.value=`echo "`+finalOC+`" > /hive/miners/nv_oc.sh && chmod +x /hive/miners/nv_oc.sh`;
+      }else{
+        ocTextBox.value=finalOC;
+      }
+      
   }else{
-    ocTextBox.value=finalOC;
+      ocTextBox.value=``;
   }
-}else{
-  ocTextBox.value=``;
-}
+     
+    
+  
 };
 
 function okRange(variable,minimo,maximo){
@@ -368,6 +381,7 @@ function delay(){
 };
 
 function copyToClipboard() {
+  
   var input = document.getElementById("cajaOC");
   if (input.value>``){
   input.select();
@@ -378,5 +392,10 @@ function copyToClipboard() {
     .catch((err) => {
       console.error("No se pudo copiar el texto: ", err);
     });
+    input.style.backgroundColor=colorDestello;
+    setTimeout(()=>{
+    input.style.backgroundColor=`gray`;
+    },300);
   }
+  
 }

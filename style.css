@@ -83,7 +83,9 @@ body{
     box-sizing: border-box;
     color:white;
     
-}
+};
+
+
 #botonadd{
     height:100%;
     position:relative;
