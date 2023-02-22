@@ -387,7 +387,7 @@ function copyToClipboard() {
   input.select();
   navigator.clipboard.writeText(input.value)
     .then(() => {
-      alert("Texto copiado al portapapeles");
+      alert("Texto copiado al portapapeles/ Copied to clipboard");
     })
     .catch((err) => {
       console.error("No se pudo copiar el texto: ", err);
