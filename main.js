@@ -1,16 +1,17 @@
 let n = 0;
-const coreOffset=`--coreoffset `;
-const coreClockLock=`--cclk-lock `;
-const mmclk=`--mmclk `;
-const mmoff=`--mmoff `;
+const coreOffset=`---setcoreoffset `;
+const coreClockLock=`--setclocks `;
+const mmclk=`--setmem `;
+const mmoff=`--memoffset `;
 let cantidadGPU=6;
 let MultiGPU=true;
 let gpusdisponibles;
 const red=`#eb0606`;
 const green= `#00722f`;
-const stableColor=`gray`;
+const stableColor=`black`;
 let finalOC=``;
 const MAXOC=100000;
+
 function limpiar(identificacion){
   let gpu = document.getElementById(identificacion);
   console.log(`eliminando...`);
@@ -294,6 +295,8 @@ function checkedIdArray(checkedArray){
 function createFinalOC(checkfromgpu){
   let commandString=``;
   checkfromgpu=checkedIdArray(checkfromgpu);
+  let ocTextBox=document.getElementById(`cajaOC`);
+  if (checkfromgpu.length>0){
   for (let i=0;i<checkfromgpu.length;i++){
     let gpuid=document.getElementById(`GPU${checkfromgpu[i]}`);
     determinarOC(gpuid.id);
@@ -304,8 +307,16 @@ function createFinalOC(checkfromgpu){
     commandString=commandString+gpuid.nvtool;
     };
   finalOC=commandString;
-  let ocTextBox=document.getElementById(`cajaOC`);
-  ocTextBox.value=finalOC;
+  
+  let echo=document.getElementById(`echocheck`);
+  if (echo.checked){
+    ocTextBox.value=`echo "`+finalOC+`" > /hive/miners/nv_oc.sh && chmod +x /hive/miners/nv_oc.sh`;
+  }else{
+    ocTextBox.value=finalOC;
+  }
+}else{
+  ocTextBox.value=``;
+}
 };
 
 function okRange(variable,minimo,maximo){
@@ -324,8 +335,6 @@ function reset(){
         if(confirm(`RESET all data?`)){
           for (let i=0; i<cantidadGPU;i++){
             let gpu=document.getElementById(`GPU${i}`);
-            clearInterval(gpu.intervalColorear);
-            clearInterval(gpu.intervalCheck);
           };
         let ocTextBox=document.getElementById(`cajaOC`);
         let miDiv = document.getElementById('gpu');
@@ -337,11 +346,10 @@ function reset(){
         }
 }
 function defaultGPU(cantidad){
-  let cant=parseInt(document.getElementById(`cantidad`).value);
   cantidadGPU=cantidad;
   createElements(cantidad);
 };
-delay();
+
 function confirmaGPU(){
     let cant=parseInt(document.getElementById(`cantidad`).value);
     if (cantidadGPU+cant<101){
@@ -349,10 +357,26 @@ function confirmaGPU(){
     createElements(cantidadGPU);
 }
 };
-
+delay();
 function delay(){
   const intervalo= setInterval(() => {
   defaultGPU(cantidadGPU);
-  clearInterval.intervalo;
+  var caja= document.getElementById("cajaOC");
+  caja.value=``;
+  clearInterval(intervalo);
   }, 500);
+};
+
+function copyToClipboard() {
+  var input = document.getElementById("cajaOC");
+  if (input.value>``){
+  input.select();
+  navigator.clipboard.writeText(input.value)
+    .then(() => {
+      alert("Texto copiado al portapapeles");
+    })
+    .catch((err) => {
+      console.error("No se pudo copiar el texto: ", err);
+    });
+  }
 }

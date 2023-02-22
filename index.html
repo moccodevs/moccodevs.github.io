@@ -11,12 +11,21 @@
 <body>
     <div id="api">
         <div id="navbar">
+            <div id="linea">
             <div id="addgpu">
             <input type="number" max="99" id="cantidad" >
-            <button onclick="confirmaGPU()">Add GPUs</button>
+            <button onclick="confirmaGPU()" id="botonadd">Add GPUs</button>
             <button onclick="reset()" id="reset">Reset</button>
-        </div>
-            <input type="text" method="POST" id="cajaOC" placeholder="Your nv-OC here!">
+            </div>
+
+                <input type="text" method="POST" id="cajaOC" placeholder="Your nv-OC here!" disabled="true">
+                    <div id="echo">
+                        <span id="echotext" class="echocheck">HiveOS echo</span><input type="checkbox" id="echocheck" class="echocheck" onchange="createFinalOC(gpusdisponibles)">
+                    </div>
+                    <button id="copy" onclick="copyToClipboard()">Copy</button>
+
+                
+            </div>
         </div>
         <div id="tabla">
             <div id="gpu" class="gpus"></div>
