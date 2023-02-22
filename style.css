@@ -17,7 +17,7 @@ body{
     background-color: rgb(33, 33, 41);
 }
 #copy{
-    min-width: 5%;
+    min-width: 7%;
     width:6%;
     position: relative;
     display:inline-block;
@@ -72,7 +72,6 @@ body{
     display:inline-flex;
 }
 #cajaOC{
-    
     background-color: gray;
     overflow-x:scroll;
     max-width: 40%;
@@ -115,7 +114,7 @@ button{
     color:white;
 }
 #linea{
-    padding-right: 1%;
+    padding-right: 0.9%;
     width: 100%;
     display:inline-flex;
     position: relative;
@@ -170,13 +169,13 @@ button{
 
 }
 #echocheck{
-
     width: 15px;
     position: relative;
-    display: flex;
+    display: inline-flex;
 
 }
 #echo{
+    flex-direction:row-reverse;
     overflow:hidden;
     display: inline-flex;
     justify-content: left;
@@ -190,6 +189,7 @@ button{
     height: 100%;
     background-color: #00000073;
     z-index: 1;
+    height:93%;
 }
 #tabla{
     position:relative;
