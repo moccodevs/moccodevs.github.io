@@ -1,5 +1,5 @@
 let n = 0;
-const coreOffset=`---setcoreoffset `;
+const coreOffset=`--setcoreoffset `;
 const coreClockLock=`--setclocks `;
 const mmclk=`--setmem `;
 const mmoff=`--memoffset `;
