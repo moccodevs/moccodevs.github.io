@@ -7,30 +7,29 @@ let cantidadGPU=6;
 let MultiGPU=true;
 let gpusdisponibles;
 const red=`#ff4d4d`;
-const green= `#5cd65c`;
+const green= `#00cc66`;
 const stableColor=`black`;
 let finalOC=``;
 const MAXOC=100000;
 let colorDestello=`#d6d6c2`;
 let copyColor=`#d6d6c2`;
-
+let timerisRunning=false;
 function limpiar(identificacion){
   let caja=document.getElementById(`cajaOC`);
   let gpu = document.getElementById(identificacion);
-  if (hayValores(gpu.id)){
+  
     console.log(`eliminando...`);
     // Accedemos al elemento <tr> que contiene a todos los elementos de la fila
+    if ((hayValores(gpu.id))&&(caja.value>``)){
+        destellar(`cajaOC`, colorDestello);
+      }
     gpu.nombre.value = ``;
     gpu.inputSetting.coff.value = ``;
     gpu.inputSetting.coclk.value = ``;
     gpu.inputSetting.mmclk.value = ``;
     gpu.inputSetting.mmoff.value = ``;
-    gpu.checkbox.disabled=true;
-    if (caja.value>``){
-      destellar(`cajaOC`, colorDestello);
-    }
-  }
-};
+    gpu.checkbox.disabled=true; 
+  };
 
 function eliminarElemento(identificacion){
     let elemento=document.getElementById(identificacion);
@@ -104,7 +103,7 @@ function createElements(cantidad) {
         nuevaGPU.inputSetting.mmoff.type=`number`;
         nuevaGPU.nuevoParrafo = document.createElement('p');
         nuevaGPU.nuevoBoton.textContent = `Boton GPU${n}`;
-        nuevaGPU.botonLimpiar.textContent = 'Reset';
+        nuevaGPU.botonLimpiar.textContent = 'Clean';
         nuevaGPU.botonLimpiar.id=`clean`;
         nuevaGPU.nombre.placeholder = 'GPU (opcional)';
         nuevaGPU.nombre.className=`inputs`;
@@ -398,11 +397,16 @@ function delay(){
 };
 
 function destellar(inputid,color){
+  if (!timerisRunning){
   let inputItem=document.getElementById(inputid);
+  getColor=inputItem.style.backgroundColor;
   inputItem.style.backgroundColor=color;
+  timerisRunning=true;
   setTimeout(()=>{
-  inputItem.style.backgroundColor=`gray`;
-  },300);
+      inputItem.style.backgroundColor=getColor;
+      timerisRunning=false;
+      },300);
+  };
 };
 
 function copyToClipboard() {
@@ -418,6 +422,8 @@ function copyToClipboard() {
       console.error("No se pudo copiar el texto: ", err);
     });
     destellar(`copy`,copyColor);
-    destellar(`cajaOC`,copyColor);
+    setTimeout(()=>{
+      destellar(`copy`,copyColor);;
+    },500)
   }
 }

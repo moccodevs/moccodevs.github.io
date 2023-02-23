@@ -15,15 +15,15 @@
         <div id="navbar">
             <div id="linea">
             <div id="addgpu">
-            <input type="number" max="99" id="cantidad" >
+            <input type="number" value="1" max="99" id="cantidad" >
             <button onclick="confirmaGPU()" id="botonadd">Add GPUs</button>
-            <button onclick="reset();destellar(`cajaOC`,`#ffe6e6`)" id="reset">Reset</button>
+            <button onclick="reset()" id="reset">Reset</button>
             </div>
                 <input type="text" method="POST" id="cajaOC" placeholder="Your nvtool-OC command line here!" disabled="true">
                     <div id="echo">
-                        <span id="echotext" class="echocheck">HiveOS echo</span><input title="Set to use in HiveShell" type="checkbox" id="echocheck" class="echocheck" onchange="createFinalOC(gpusdisponibles);destellar(`cajaOC`,colorDestello)">
+                        <span id="echotext" class="echocheck">HiveOS echo</span><input title="Set to use in HiveShell" type="checkbox" id="echocheck" class="echocheck" onchange="createFinalOC(gpusdisponibles)">
                     </div>
-                    <button title="Copy to clipboard" id="copy" class="btn-icon" onclick="copyToClipboard()"><i class="far fa-copy"></i></button>
+                    <button title="Copy to clipboard" id="copy" class="btn-icon" onclick="copyToClipboard();"><i class="far fa-copy"></i></button>
             </div>
         </div>
         <div id="tabla">
