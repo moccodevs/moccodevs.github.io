@@ -417,13 +417,7 @@ function copyToClipboard() {
     .catch((err) => {
       console.error("No se pudo copiar el texto: ", err);
     });
-    
-    let titilar= setInterval(()=>{
-      destellar(`copy`,copyColor);
-      destellar(`cajaOC`,copyColor);
-    },500);
-    setTimeout(()=>{
-      clearInterval(titilar);
-      },1200);
+    destellar(`copy`,copyColor);
+    destellar(`cajaOC`,copyColor);
   }
 }
