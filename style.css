@@ -6,24 +6,46 @@
     align-items: center;
     
 }
+.check{
+    height:15px;
+    width:30px;
+}
 .botonLimpiar,.check,.status{
-    margin-top: 10px;
+    margin-top: 25px;
     text-align:justify;
     max-width: 40%;
     display:inline-table;
+    border-color: rgb(196, 196, 196);
+
 }  
+.botonLimpiar{
+    margin-left:20px;
+}
 body{
     text-align: center;
-    background-color: rgb(33, 33, 41);
+    background-color: #212129;
 }
+.btn-icon {
+
+  }
+  
+.btn-icon i {
+    font-size: larger;
+ }
+
 #copy{
-    min-width: 7%;
-    width:6%;
+    border-color: black;
+    color:white;
+    background-color: #212129;
+    align-items: center;
+    width:50px;
+    max-width: 7%;
     position: relative;
     display:inline-block;
-    height:100%;
+    height:99%;
 }
 .nombres{
+    margin-right: 10px;
     font-family: Arial, Helvetica, sans-serif;
     align-content: center;
     border-radius: 20%;
@@ -39,17 +61,20 @@ body{
     padding-right: 10%;
     overflow: hidden;
     padding-left:10%;
-    max-width: 70%;
+    max-width: 60%;
     height:100%;
     justify-content: left;
     position:relative;
     display: inline-flex;
 }
+#placa{
+    color: white;
+}
 .inputs{
     color-scheme:dark;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     margin-top: 15px;
-    margin-right: 15px;
+    margin-left: 15px;
     max-width: 40%;
     position:relative;
     text-align: left;
@@ -60,7 +85,6 @@ body{
     color:rgb(255, 255, 255);
 }
 .status{
-    color:white;
     width:45px;
     text-align: center;
 }
@@ -85,7 +109,9 @@ body{
     
 };
 
-
+#moccoicon{
+    background-image: url(`/logo`);
+}
 #botonadd{
     height:100%;
     position:relative;
@@ -95,6 +121,7 @@ body{
 }
 
 button{
+    
     overflow: hidden;
     color-scheme: dark;
     border-style:ridge;
@@ -182,10 +209,11 @@ button{
     display: inline-flex;
     justify-content: left;
     flex-grow: 1;
-    max-width: 7%;
+    max-width: 5%;
+    min-width: 3%;
     position:relative;
     text-align: left;
-    width: 80px;
+    width: 70px;
     border-width: 10%;
     color: aliceblue;
     height: 100%;

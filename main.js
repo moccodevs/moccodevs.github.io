@@ -6,23 +6,30 @@ const mmoff=`--memoffset `;
 let cantidadGPU=6;
 let MultiGPU=true;
 let gpusdisponibles;
-const red=`#eb0606`;
-const green= `#00722f`;
+const red=`#ff4d4d`;
+const green= `#5cd65c`;
 const stableColor=`black`;
 let finalOC=``;
 const MAXOC=100000;
-colorDestello=`#d183f0`;
+let colorDestello=`#d6d6c2`;
+let copyColor=`#d6d6c2`;
 
 function limpiar(identificacion){
+  let caja=document.getElementById(`cajaOC`);
   let gpu = document.getElementById(identificacion);
-  console.log(`eliminando...`);
-  // Accedemos al elemento <tr> que contiene a todos los elementos de la fila
-  gpu.nombre.value = ``;
-  gpu.inputSetting.coff.value = ``;
-  gpu.inputSetting.coclk.value = ``;
-  gpu.inputSetting.mmclk.value = ``;
-  gpu.inputSetting.mmoff.value = ``;
-  gpu.checkbox.disabled=true;
+  if (hayValores(gpu.id)){
+    console.log(`eliminando...`);
+    // Accedemos al elemento <tr> que contiene a todos los elementos de la fila
+    gpu.nombre.value = ``;
+    gpu.inputSetting.coff.value = ``;
+    gpu.inputSetting.coclk.value = ``;
+    gpu.inputSetting.mmclk.value = ``;
+    gpu.inputSetting.mmoff.value = ``;
+    gpu.checkbox.disabled=true;
+    if (caja.value>``){
+      destellar(`cajaOC`, colorDestello);
+    }
+  }
 };
 
 function eliminarElemento(identificacion){
@@ -101,6 +108,7 @@ function createElements(cantidad) {
         nuevaGPU.botonLimpiar.id=`clean`;
         nuevaGPU.nombre.placeholder = 'GPU (opcional)';
         nuevaGPU.nombre.className=`inputs`;
+        nuevaGPU.nombre.id=`placa`;
         nuevaGPU.inputSetting.coff.placeholder = 'core-clock OFFSET';
         nuevaGPU.inputSetting.coclk.placeholder = 'core-clock LOCK';
         nuevaGPU.inputSetting.mmclk.placeholder = 'memory-clock-LOCK';
@@ -137,14 +145,9 @@ function createElements(cantidad) {
         nuevaGPU.checkbox.disabled=true;
         colorear(nuevaGPU.id,stableColor);
         nuevaGPU.checkbox.addEventListener(`change`,function(){
-          let input=document.getElementById(`cajaOC`);
           if ((nuevaGPU.checkbox.checked)){
               
-              input.style.backgroundColor=green;
-              setTimeout(()=>{
-              
-              input.style.backgroundColor=`gray`;
-              },300);
+              destellar(`cajaOC`,colorDestello);
               nuevaGPU.status.style.backgroundColor = green;
               nuevaGPU.status.value=`OK!`;
               console.log(`nvtool ENABLED`);
@@ -250,14 +253,25 @@ function manageOCInputs(gpu,status){
     };
   };
   
+function whiteFont(itemid){
+  item=document.getElementById(itemid);
+  
+}
+
+
 function colorear(gpu,stableColor){
             let nuevaGPU=document.getElementById(gpu);
+            nuevaGPU.inputSetting.coff.style.color=`black`;
+            nuevaGPU.inputSetting.coclk.style.color=`black`;
+            nuevaGPU.inputSetting.mmoff.style.color=`black`;
+            nuevaGPU.inputSetting.mmclk.style.color=`black`;
             if (esNum(nuevaGPU.inputSetting.coff.value)){
               nuevaGPU.inputSetting.coff.style.backgroundColor=green;
               if (nuevaGPU.inputSetting.coff.value>MAXOC){
                 nuevaGPU.inputSetting.coff.style.backgroundColor=red;
               }
             }else{
+              nuevaGPU.inputSetting.coff.style.color=`white`;
               nuevaGPU.inputSetting.coff.style.backgroundColor=stableColor;
             };
             if (esNum(nuevaGPU.inputSetting.coclk.value)){
@@ -266,6 +280,7 @@ function colorear(gpu,stableColor){
                 nuevaGPU.inputSetting.coclk.style.backgroundColor=red;
               }
             }else{
+              nuevaGPU.inputSetting.coclk.style.color=`white`;
               nuevaGPU.inputSetting.coclk.style.backgroundColor=stableColor;
             }
             ;
@@ -275,6 +290,7 @@ function colorear(gpu,stableColor){
                   nuevaGPU.inputSetting.mmclk.style.backgroundColor=red;
               }
             }else{
+              nuevaGPU.inputSetting.mmclk.style.color=`white`;
               nuevaGPU.inputSetting.mmclk.style.backgroundColor=stableColor;
             };
             if (esNum(nuevaGPU.inputSetting.mmoff.value)){
@@ -283,6 +299,7 @@ function colorear(gpu,stableColor){
                   nuevaGPU.inputSetting.mmoff.style.backgroundColor=red;
               }
             }else{
+              nuevaGPU.inputSetting.mmoff.style.color=`white`;
               nuevaGPU.inputSetting.mmoff.style.backgroundColor=stableColor;
             };
 }
@@ -377,25 +394,36 @@ function delay(){
   var caja= document.getElementById("cajaOC");
   caja.value=``;
   clearInterval(intervalo);
-  }, 500);
+  }, 300);
+};
+
+function destellar(inputid,color){
+  let inputItem=document.getElementById(inputid);
+  inputItem.style.backgroundColor=color;
+  setTimeout(()=>{
+  inputItem.style.backgroundColor=`gray`;
+  },300);
 };
 
 function copyToClipboard() {
-  
+  let boton= document.getElementById(`copy`)
   var input = document.getElementById("cajaOC");
   if (input.value>``){
   input.select();
   navigator.clipboard.writeText(input.value)
     .then(() => {
-      alert("Texto copiado al portapapeles/ Copied to clipboard");
+
     })
     .catch((err) => {
       console.error("No se pudo copiar el texto: ", err);
     });
-    input.style.backgroundColor=colorDestello;
+    
+    let titilar= setInterval(()=>{
+      destellar(`copy`,copyColor);
+      destellar(`cajaOC`,copyColor);
+    },500);
     setTimeout(()=>{
-    input.style.backgroundColor=`gray`;
-    },300);
+      clearInterval(titilar);
+      },1200);
   }
-  
 }

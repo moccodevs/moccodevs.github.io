@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="main.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="icon" type="image/png" href="https://i.ibb.co/QJscZk9/mocco.png">
     <title>Nvtool-editor</title>
 </head>
 <body>
@@ -15,16 +17,13 @@
             <div id="addgpu">
             <input type="number" max="99" id="cantidad" >
             <button onclick="confirmaGPU()" id="botonadd">Add GPUs</button>
-            <button onclick="reset()" id="reset">Reset</button>
+            <button onclick="reset();destellar(`cajaOC`,`#ffe6e6`)" id="reset">Reset</button>
             </div>
-
                 <input type="text" method="POST" id="cajaOC" placeholder="Your nvtool-OC command line here!" disabled="true">
                     <div id="echo">
-                        <span id="echotext" class="echocheck">HiveOS echo</span><input type="checkbox" id="echocheck" class="echocheck" onchange="createFinalOC(gpusdisponibles)">
+                        <span id="echotext" class="echocheck">HiveOS echo</span><input title="Set to use in HiveShell" type="checkbox" id="echocheck" class="echocheck" onchange="createFinalOC(gpusdisponibles);destellar(`cajaOC`,colorDestello)">
                     </div>
-                    <button id="copy" onclick="copyToClipboard()">Copy</button>
-
-                
+                    <button title="Copy to clipboard" id="copy" class="btn-icon" onclick="copyToClipboard()"><i class="far fa-copy"></i></button>
             </div>
         </div>
         <div id="tabla">
