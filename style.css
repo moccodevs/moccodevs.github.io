@@ -25,13 +25,12 @@ a{
     
 }
 p{
-    color:white;
+    color:rgba(255, 255, 255, 0.753);
 }
 #checktexto{
-    background-color: #00000080;
     font-size: 15px;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: white;
+    color: rgba(255, 255, 255, 0.589);
     position: relative;
 
     display: inline-block;
@@ -49,6 +48,10 @@ p{
     display: inline-block;
 }
 #subdiv{
+    
+    background-image: linear-gradient(to left, rgba(0, 0, 0, 0.829), #00000000 20%) ;
+    position:relative;
+    
     text-align: right;
 }
 #direcciones{
@@ -120,10 +123,12 @@ h4{
     width: 80px;
 }
 #ppie1{
+    
     text-align: center;
     height: 100px;
     width: 1000px;
     display:block;
+    
     
 }
 .wdir{
@@ -136,10 +141,11 @@ h4{
     display: inline-block;
 }
 #anchofooter{
+    
     top: 0px;
     left:0%;
     display: block;
-    margin-top: 150px;
+    margin-top: 140px;
     position: relative;
     height:100%;
     width: 100%;
@@ -179,10 +185,6 @@ body{
     text-align: center;
     background-color: #212129;
 }
-.btn-icon {
-
-  }
-  
 .btn-icon i {
     font-size: larger;
  }
@@ -216,11 +218,14 @@ h3{
     margin-right: 15px;
 }
 .nombres{
+    padding-top:3px;
+    padding-bottom:1px;
+    margin-bottom: 2px;
     margin-right: 10px;
     font-family: Arial, Helvetica, sans-serif;
     align-content: center;
-    border-radius: 20%;
-    background-color: black;
+    height:20px;
+    background-image: linear-gradient(to right, rgba(75, 75, 75, 0.411) 10%, #00000000 40%,rgba(0, 0, 0, 0.774));
     color: aquamarine;
     position:relative;
     max-inline-size: 10%;
@@ -376,8 +381,12 @@ button{
 
 }
 #ppie{
+    border-color: #ffffff60;
+    border-style:double;
+    border-bottom: #000000;
+    border-left: #000000;border-right: #000000;
     margin:0 auto;
-
+    
     text-align: center;
     display: block;
     margin-top: 0;

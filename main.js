@@ -19,8 +19,6 @@ let timerisRunning=false;
 function limpiar(identificacion){
   let caja=document.getElementById(`cajaOC`);
   let gpu = document.getElementById(identificacion);
-  
-    console.log(`eliminando...`);
     // Accedemos al elemento <tr> que contiene a todos los elementos de la fila
     if ((hayValores(gpu.id))&&(caja.value>``)){
         destellar(`cajaOC`, colorDestello);
@@ -35,7 +33,6 @@ function limpiar(identificacion){
 
 function eliminarElemento(identificacion){
     let elemento=document.getElementById(identificacion);
-    console.log(`eliminad`);
     elemento.value=``;
 };
 
@@ -110,10 +107,10 @@ function createElements(cantidad) {
         nuevaGPU.nombre.placeholder = 'GPU (optional)';
         nuevaGPU.nombre.className=`inputs`;
         nuevaGPU.nombre.id=`placa`;
-        nuevaGPU.inputSetting.coff.placeholder = 'core-clock OFFSET';
-        nuevaGPU.inputSetting.coclk.placeholder = 'core-clock LOCK';
-        nuevaGPU.inputSetting.mmclk.placeholder = 'memory-clock-LOCK';
-        nuevaGPU.inputSetting.mmoff.placeholder = 'memory-clock-OFFSET';
+        nuevaGPU.inputSetting.coff.placeholder = 'Core c-OFFSET';
+        nuevaGPU.inputSetting.coclk.placeholder = 'Core c-LOCK';
+        nuevaGPU.inputSetting.mmclk.placeholder = 'Memory c-LOCK';
+        nuevaGPU.inputSetting.mmoff.placeholder = 'Memory c-OFFSET';
         nuevaGPU.inputSetting.coff.id= `s1${n}`;
         nuevaGPU.inputSetting.coclk.id=`s2${n}`;
         nuevaGPU.inputSetting.mmclk.id=`s3${n}`;
@@ -175,25 +172,24 @@ function createElements(cantidad) {
               destellar(`cajaOC`,colorDestello);
               nuevaGPU.status.style.backgroundColor = green;
               nuevaGPU.status.value=`OK!`;
-              console.log(`nvtool ENABLED`);
+             
               nuevaGPU.cargada=true;
-              console.log(`gpu cargada`);
+      
               
           }
           else{
             nuevaGPU.status.value=`NO OC`;
             nuevaGPU.status.style.backgroundColor = red;
-            console.log(`nvtool disabled/unchecked`);
             nuevaGPU.nvtool=``;
           };
         createFinalOC(gpusdisponibles);
-        console.log(`nvtool disabled: ${nuevaGPU.id} nvtool: `+nuevaGPU.nvtool);
+        //console.log(`nvtool disabled: ${nuevaGPU.id} nvtool: `+nuevaGPU.nvtool);
         });
         const elementos = document.querySelectorAll('.inputs');
         elementos.forEach(function(element) {
               element.addEventListener('input', function() {
               colorear(nuevaGPU.id,stableColor);
-              console.log(`se ingreso valor`);
+              
                 if (hayValores(nuevaGPU.id)){
                   nuevaGPU.checkbox.disabled=false;
                   
@@ -208,7 +204,7 @@ function createElements(cantidad) {
                   };
                 if ((nuevaGPU.checkbox.checked==true)){
                   }
-              console.log(` ${nuevaGPU.id} nvtool: `+nuevaGPU.nvtool);
+              
               createFinalOC(gpusdisponibles);
             });
         });
@@ -229,6 +225,19 @@ function createElements(cantidad) {
     };
 };
 
+function refreshStatus(gpuid){
+let gpu=document.getElementById(gpuid);
+  if ((gpu.checkbox.checked)){
+    gpu.status.style.backgroundColor = green;
+    gpu.status.value=`OK!`;
+    gpu.cargada=true;
+  }
+  else{
+    gpu.status.value=`NO OC`;
+    gpu.status.style.backgroundColor = red;
+    gpu.nvtool=``;
+  };
+}
 
 function manejarError(variable){
   try {
@@ -277,7 +286,7 @@ function manageOCInputs(gpu,status){
       placa.inputSetting.coff.readOnly=status;
       placa.inputSetting.mmclk.readOnly=status;
       placa.inputSetting.mmoff.readOnly=status;
-      console.log(`setting `+status);
+      //console.log(`setting `+status);
     };
   };
   
@@ -461,8 +470,10 @@ function changeCheckAll(){
       let gpu=document.getElementById(`GPU${i}`);
       if (hayValores(`GPU${i}`)){
         gpu.checkbox.checked=bool
+        refreshStatus(`GPU${i}`);
       }
     }
+    
 }
 
 function copyToClipboard() {
