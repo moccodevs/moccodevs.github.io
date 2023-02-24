@@ -7,13 +7,15 @@ let cantidadGPU=6;
 let MultiGPU=true;
 let gpusdisponibles;
 const red=`#ff4d4d`;
-const green= `#00cc66`;
+const green= `hsla(150, 100%, 40%, 0.7)`;
 const stableColor=`black`;
+const letrasInputColor=`white`;
 let finalOC=``;
 const MAXOC=100000;
-let colorDestello=`#d6d6c2`;
-let copyColor=`#d6d6c2`;
+let colorDestello=`rgba(255, 255, 255, 0.4)`;
+let copyColor=`rgba(255, 255, 255, 0.4)`;
 let timerisRunning=false;
+
 function limpiar(identificacion){
   let caja=document.getElementById(`cajaOC`);
   let gpu = document.getElementById(identificacion);
@@ -65,21 +67,21 @@ function determinarOC(gpu){
   if (placa.nvtool!=nvtoolString){
   placa.nvtool=nvtoolString+` `;
   };
+
 };
 
 
 function createElements(cantidad) {
-  if (n==1){
-    
-  };
+
   if (cantidad>0){
     let miDiv = document.getElementById('gpu');
     let info=document.createElement('p');
-    
   while (n < cantidad) {
         let space = document.createElement('span');
         space.textContent=' ';
         let nuevaGPU = document.createElement('div');
+        //Creacion del check para todos los check:
+        
         nuevaGPU.nombre = document.createElement('input');
         nuevaGPU.gpuN = document.createElement(`p`);
         nuevaGPU.gpuN.textContent=(`GPU${n}`);
@@ -105,7 +107,7 @@ function createElements(cantidad) {
         nuevaGPU.nuevoBoton.textContent = `Boton GPU${n}`;
         nuevaGPU.botonLimpiar.textContent = 'Clean';
         nuevaGPU.botonLimpiar.id=`clean`;
-        nuevaGPU.nombre.placeholder = 'GPU (opcional)';
+        nuevaGPU.nombre.placeholder = 'GPU (optional)';
         nuevaGPU.nombre.className=`inputs`;
         nuevaGPU.nombre.id=`placa`;
         nuevaGPU.inputSetting.coff.placeholder = 'core-clock OFFSET';
@@ -123,6 +125,30 @@ function createElements(cantidad) {
         nuevaGPU.id=`GPU${n}`;
         nuevaGPU.gpuN.className = 'nombres';
         nuevaGPU.cargada=false;
+        if (n==0){
+          let miSubdiv=document.createElement(`div`);
+          let descripcioncheck=document.createElement(`span`);
+          descripcioncheck.textContent=`Check/uncheck All`;
+          descripcioncheck.id=`checktexto`
+          let checkall=document.createElement(`input`);
+          checkall.type=`checkbox`;
+          checkall.id=`todochange`;
+          checkall.className="inputs";
+          miSubdiv.id=`subdiv`
+          
+          checkall.addEventListener(`change`,function(){
+            changeCheckAll();
+            createFinalOC(gpusdisponibles);
+            
+                
+            
+          })
+          miDiv.appendChild(miSubdiv);
+          miSubdiv.appendChild(descripcioncheck);
+          miSubdiv.appendChild(checkall);
+
+        }
+        
         miDiv.appendChild(nuevaGPU);
         miDiv.appendChild(nuevaGPU.gpuN);
         miDiv.appendChild(nuevaGPU.nombre);
@@ -143,7 +169,7 @@ function createElements(cantidad) {
         nuevaGPU.cargada=false;
         nuevaGPU.checkbox.disabled=true;
         colorear(nuevaGPU.id,stableColor);
-        nuevaGPU.checkbox.addEventListener(`change`,function(){
+        nuevaGPU.checkbox.addEventListener(`change`,function (){
           if ((nuevaGPU.checkbox.checked)){
               
               destellar(`cajaOC`,colorDestello);
@@ -170,8 +196,10 @@ function createElements(cantidad) {
               console.log(`se ingreso valor`);
                 if (hayValores(nuevaGPU.id)){
                   nuevaGPU.checkbox.disabled=false;
+                  
                   }
                   else{
+                    
                     nuevaGPU.status.value=`NO OC`;
                     nuevaGPU.status.style.backgroundColor=red;
                     nuevaGPU.checkbox.checked=false;
@@ -200,6 +228,8 @@ function createElements(cantidad) {
     miDiv.appendChild(info);
     };
 };
+
+
 function manejarError(variable){
   try {
     // Intenta utilizar la variable no definida
@@ -222,7 +252,6 @@ if (gpu.startsWith(`GPU`)){
     linea.checkbox.disabled=true;
     return false;
     }
-
   }
   else{
     linea.checkbox.checked=false;
@@ -260,10 +289,12 @@ function whiteFont(itemid){
 
 function colorear(gpu,stableColor){
             let nuevaGPU=document.getElementById(gpu);
-            nuevaGPU.inputSetting.coff.style.color=`black`;
-            nuevaGPU.inputSetting.coclk.style.color=`black`;
-            nuevaGPU.inputSetting.mmoff.style.color=`black`;
-            nuevaGPU.inputSetting.mmclk.style.color=`black`;
+            nuevaGPU.inputSetting.coff.style.color=letrasInputColor;
+            nuevaGPU.inputSetting.coclk.style.color=letrasInputColor;
+            nuevaGPU.inputSetting.mmoff.style.color=letrasInputColor;
+            nuevaGPU.inputSetting.mmclk.style.color=letrasInputColor;
+            
+
             if (esNum(nuevaGPU.inputSetting.coff.value)){
               nuevaGPU.inputSetting.coff.style.backgroundColor=green;
               if (nuevaGPU.inputSetting.coff.value>MAXOC){
@@ -343,7 +374,7 @@ function createFinalOC(checkfromgpu){
   }else{
       ocTextBox.value=``;
   }
-     
+  
     
   
 };
@@ -386,6 +417,7 @@ function confirmaGPU(){
     createElements(cantidadGPU);
 }
 };
+
 delay();
 function delay(){
   const intervalo= setInterval(() => {
@@ -408,6 +440,30 @@ function destellar(inputid,color){
       },300);
   };
 };
+
+/*
+document.getElementById("myInput").addEventListener("click", function() {
+  // Selecciona el contenido del input
+  this.select();
+  // Copia el contenido seleccionado al clipboard
+  document.execCommand("copy");
+  // Deselecciona el contenido
+  this.setSelectionRange(0, 0);
+});
+*/
+function changeCheckAll(){
+    let check=document.getElementById(`todochange`);
+    let bool=true;
+    if (check.checked==false){
+      bool=false;
+    }
+    for(let i=0;i<cantidadGPU;i++){
+      let gpu=document.getElementById(`GPU${i}`);
+      if (hayValores(`GPU${i}`)){
+        gpu.checkbox.checked=bool
+      }
+    }
+}
 
 function copyToClipboard() {
   let boton= document.getElementById(`copy`)

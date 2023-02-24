@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="main.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" type="image/png" href="https://i.ibb.co/QJscZk9/mocco.png">
     <title>Nvtool-editor</title>
 </head>
 <body>
-    <div id="api">
+
         <div id="navbar">
             <div id="linea">
             <div id="addgpu">
@@ -19,17 +18,25 @@
             <button onclick="confirmaGPU()" id="botonadd">Add GPUs</button>
             <button onclick="reset()" id="reset">Reset</button>
             </div>
-                <input type="text" method="POST" id="cajaOC" placeholder="Your nvtool-OC command line here!" disabled="true">
+                <input type="text" id="cajaOC"  placeholder="Your nvtool-OC command line here!" disabled="true">
                     <div id="echo">
                         <span id="echotext" class="echocheck">HiveOS echo</span><input title="Set to use in HiveShell" type="checkbox" id="echocheck" class="echocheck" onchange="createFinalOC(gpusdisponibles)">
                     </div>
-                    <button title="Copy to clipboard" id="copy" class="btn-icon" onclick="copyToClipboard();"><i class="far fa-copy"></i></button>
+                    <button title="Copy to clipboard" id="copy" class="btn-icon" onclick="copyToClipboard()"><i class="far fa-copy"></i></button>
             </div>
         </div>
         <div id="tabla">
+            
             <div id="gpu" class="gpus"></div>
         </div>
         <div id="nvtool" class="notas"></div>
-    </div>
+<div id="anchofooter">
+    <footer>
+        <p  id="ppie">Developed by <a href="https://github.com/moccodevs" style="color:white"><span class="moccodevicon"></span>moccodevs</a>.<a id="donate" type="button" href="donate.html"><span>&#9994;</span>Donate<span>&#9994;</span></a></p>
+        
+        
+    </footer>
+</div> 
 </body>
+<script src="main.js"></script>
 </html>
