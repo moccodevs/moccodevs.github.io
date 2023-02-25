@@ -321,6 +321,7 @@ button{
     height:100%;
 }
 #reset{
+    margin-right: 5px;
     align-items: center;
     height:100%;
     width:45px;
