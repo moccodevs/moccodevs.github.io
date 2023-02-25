@@ -215,7 +215,6 @@ h3{
     position: relative;
     display:inline-block;
     height:100%;
-    margin-right: 13px;
 }
 .nombres{
     padding-top:3px;
@@ -282,7 +281,7 @@ h3{
     display:flex;
     justify-content: left;
     position: relative;
-    width:60%;
+    width:65%;
     height:100%;
     box-sizing: border-box;
     color:rgba(255, 255, 255, 0.822);
@@ -295,6 +294,7 @@ h3{
 #botonadd{
     height:100%;
     position:relative;
+    min-width: 50px;
     max-width: 30%;
     width: 100%;
     display:inline-block;
@@ -321,16 +321,19 @@ button{
     height:100%;
 }
 #reset{
+    min-width: 50px;
+    text-align: center;
     margin-right: 5px;
     align-items: center;
     height:100%;
-    width:45px;
+    width:50px;
     display: inline-block;
 }
 ::placeholder{
     color:rgba(255, 255, 255, 0.568);
 }
 #linea{
+    justify-content: center;
     padding-left: 0%;
     width: 100%;
     display:inline-flex;
