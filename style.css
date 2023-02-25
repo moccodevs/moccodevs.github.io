@@ -208,7 +208,7 @@ h3{
     background-color: #212129;
     margin-left: 5px;
     border-color: gray;
-    color:white;
+    color:rgba(255, 255, 255, 0.829);
     align-items: center;
     width:50px;
     max-width: 8%;
@@ -268,10 +268,10 @@ h3{
     text-align: center;
 }
 #cantidad{
-    padding-bottom: 2.9%;
-    height: 76%;
+    padding-top: 0.6%;
+    padding-bottom: 2%;
+    height: 78%;
     max-width: 40%;
-    margin-top: 0.2%;
     width: 50px;
     display:inline-flex;
 }
@@ -301,11 +301,12 @@ h3{
 }
 
 button{
-    color:rgba(255, 255, 255, 0.781);
+    color:rgba(255, 255, 255, 0.849);
     overflow: hidden;
     background-color: #212129;
     column-rule-color: beige;
-    border-style:ridge;
+    border-color: gray;
+    
 }
 #copy:hover,button:hover{
     background-color: #f4f4f49d;
@@ -320,6 +321,7 @@ button{
     height:100%;
 }
 #reset{
+    align-items: center;
     height:100%;
     width:45px;
     display: inline-block;
