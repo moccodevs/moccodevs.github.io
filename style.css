@@ -205,7 +205,7 @@ h3{
     color: white;
 }
 #copy{
-    color-scheme: dark;
+    background-color: #212129;
     margin-left: 5px;
     border-color: gray;
     color:white;
@@ -248,7 +248,8 @@ h3{
 }
 
 .inputs{
-    color-scheme:dark;
+    color-scheme: dark;
+    background-color: #212129ce;
     color: rgb(0, 0, 0);
     margin-top: 15px;
     margin-left: 15px;
@@ -260,12 +261,14 @@ h3{
 }
 .inputs::placeholder{
     color:rgb(255, 255, 255);
+    background-color: #000000bd;
 }
 .status{
     width:45px;
     text-align: center;
 }
 #cantidad{
+    padding-bottom: 2.9%;
     height: 76%;
     max-width: 40%;
     margin-top: 0.2%;
@@ -298,10 +301,15 @@ h3{
 }
 
 button{
+    color:rgba(255, 255, 255, 0.781);
     overflow: hidden;
-    color-scheme: dark;
+    background-color: #212129;
     column-rule-color: beige;
     border-style:ridge;
+}
+#copy:hover,button:hover{
+    background-color: #f4f4f49d;
+    color: #333;
 }
 #addgpu{
     margin-left: 0px;
@@ -317,7 +325,7 @@ button{
     display: inline-block;
 }
 ::placeholder{
-    color:rgba(255, 255, 255, 0.459);
+    color:rgba(255, 255, 255, 0.568);
 }
 #linea{
     padding-left: 0%;

@@ -421,7 +421,7 @@ function defaultGPU(cantidad){
 
 function confirmaGPU(){
     let cant=parseInt(document.getElementById(`cantidad`).value);
-    if (cantidadGPU+cant<101){
+    if ((cantidadGPU+cant<101)&&(cant>0)){
     cantidadGPU=cantidadGPU+cant;
     createElements(cantidadGPU);
 }
