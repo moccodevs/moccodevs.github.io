@@ -2,7 +2,7 @@ let n = 0;
 const coreOffset=`--setcoreoffset `;
 const coreClockLock=`--setclocks `;
 const mmclk=`--setmem `;
-const mmoff=`--memoffset `;
+const mmoff=`--setmemoffset `;
 let cantidadGPU=6;
 let MultiGPU=true;
 let gpusdisponibles;
