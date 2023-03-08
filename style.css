@@ -256,7 +256,7 @@ h3{
     max-width: 40%;
     position:relative;
     text-align: left;
-    width: 160px;
+    width: 130px;
     display:inline-flex;
 }
 .inputs::placeholder{

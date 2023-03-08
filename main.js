@@ -3,6 +3,7 @@ const coreOffset=`--setcoreoffset `;
 const coreClockLock=`--setclocks `;
 const mmclk=`--setmem `;
 const mmoff=`--setmemoffset `;
+const plimit=`--setpl `;
 let cantidadGPU=6;
 let MultiGPU=true;
 let gpusdisponibles;
@@ -28,6 +29,7 @@ function limpiar(identificacion){
     gpu.inputSetting.coclk.value = ``;
     gpu.inputSetting.mmclk.value = ``;
     gpu.inputSetting.mmoff.value = ``;
+    gpu.inputSetting.plimit.value = ``;
     gpu.checkbox.disabled=true; 
   };
 
@@ -60,6 +62,9 @@ function determinarOC(gpu){
   }
   if (esNum(placa.inputSetting.mmoff.value)){
     nvtoolString=nvtoolString+' '+mmoff+placa.inputSetting.mmoff.value;
+  };
+  if (esNum(placa.inputSetting.plimit.value)){
+    nvtoolString=nvtoolString+' '+plimit+placa.inputSetting.plimit.value;
   };
   if (placa.nvtool!=nvtoolString){
   placa.nvtool=nvtoolString+` `;
@@ -94,12 +99,14 @@ function createElements(cantidad) {
             coff : document.createElement('input'),
             coclk : document.createElement('input'),
             mmclk : document.createElement('input'),
-            mmoff : document.createElement(`input`)
+            mmoff : document.createElement(`input`),
+            plimit : document.createElement(`input`)
         };
         nuevaGPU.inputSetting.coff.type=`number`;
         nuevaGPU.inputSetting.coclk.type=`number`;
         nuevaGPU.inputSetting.mmclk.type=`number`;
         nuevaGPU.inputSetting.mmoff.type=`number`;
+        nuevaGPU.inputSetting.plimit.type=`number`;
         nuevaGPU.nuevoParrafo = document.createElement('p');
         nuevaGPU.nuevoBoton.textContent = `Boton GPU${n}`;
         nuevaGPU.botonLimpiar.textContent = 'Clean';
@@ -109,16 +116,19 @@ function createElements(cantidad) {
         nuevaGPU.nombre.id=`placa`;
         nuevaGPU.inputSetting.coff.placeholder = 'Core c-OFFSET';
         nuevaGPU.inputSetting.coclk.placeholder = 'Core c-LOCK';
-        nuevaGPU.inputSetting.mmclk.placeholder = 'Memory c-LOCK';
-        nuevaGPU.inputSetting.mmoff.placeholder = 'Memory c-OFFSET';
+        nuevaGPU.inputSetting.mmclk.placeholder = 'Mem c-LOCK';
+        nuevaGPU.inputSetting.mmoff.placeholder = 'Mem c-OFFSET';
+        nuevaGPU.inputSetting.plimit.placeholder = 'PowerLimit';
         nuevaGPU.inputSetting.coff.id= `s1${n}`;
         nuevaGPU.inputSetting.coclk.id=`s2${n}`;
         nuevaGPU.inputSetting.mmclk.id=`s3${n}`;
         nuevaGPU.inputSetting.mmoff.id=`s4${n}`;
+        nuevaGPU.inputSetting.plimit.id=`s4${n}`;
         nuevaGPU.inputSetting.coff.className= `inputs`;
         nuevaGPU.inputSetting.coclk.className=`inputs`;
         nuevaGPU.inputSetting.mmclk.className=`inputs`;
         nuevaGPU.inputSetting.mmoff.className=`inputs`;
+        nuevaGPU.inputSetting.plimit.className=`inputs`;
         nuevaGPU.id=`GPU${n}`;
         nuevaGPU.gpuN.className = 'nombres';
         nuevaGPU.cargada=false;
@@ -153,6 +163,7 @@ function createElements(cantidad) {
         miDiv.appendChild(nuevaGPU.inputSetting.coclk);
         miDiv.appendChild(nuevaGPU.inputSetting.mmoff);
         miDiv.appendChild(nuevaGPU.inputSetting.mmclk);
+        miDiv.appendChild(nuevaGPU.inputSetting.plimit);
         miDiv.appendChild(nuevaGPU.botonLimpiar);
         miDiv.appendChild(nuevaGPU.checkbox);
         miDiv.appendChild(nuevaGPU.status);
@@ -251,9 +262,9 @@ function manejarError(variable){
 function hayValores(gpu){
 if (gpu.startsWith(`GPU`)){
   let linea=document.getElementById(gpu);
-  valores=linea.inputSetting.coff.value+linea.inputSetting.coclk.value+linea.inputSetting.mmclk.value+linea.inputSetting.mmoff.value;
+  valores=linea.inputSetting.coff.value+linea.inputSetting.coclk.value+linea.inputSetting.mmclk.value+linea.inputSetting.mmoff.value+linea.inputSetting.plimit.value;
   if (esNum(valores)){
-    if ((okRange(linea.inputSetting.coff.value,0,MAXOC))&&(okRange(linea.inputSetting.coclk.value,0,MAXOC))&&(okRange(linea.inputSetting.mmclk.value,0,MAXOC))&&(okRange(linea.inputSetting.mmoff.value,0,MAXOC))){
+    if ((okRange(linea.inputSetting.coff.value,0,MAXOC))&&(okRange(linea.inputSetting.coclk.value,0,MAXOC))&&(okRange(linea.inputSetting.mmclk.value,0,MAXOC))&&(okRange(linea.inputSetting.mmoff.value,0,MAXOC))&&(okRange(linea.inputSetting.plimit.value,0,MAXOC))){
       linea.checkbox.disabled=false
       return true;
     }else{
@@ -286,6 +297,7 @@ function manageOCInputs(gpu,status){
       placa.inputSetting.coff.readOnly=status;
       placa.inputSetting.mmclk.readOnly=status;
       placa.inputSetting.mmoff.readOnly=status;
+      placa.inputSetting.plimit.readOnly=status;
       //console.log(`setting `+status);
     };
   };
@@ -302,7 +314,7 @@ function colorear(gpu,stableColor){
             nuevaGPU.inputSetting.coclk.style.color=letrasInputColor;
             nuevaGPU.inputSetting.mmoff.style.color=letrasInputColor;
             nuevaGPU.inputSetting.mmclk.style.color=letrasInputColor;
-            
+            nuevaGPU.inputSetting.plimit.style.color=letrasInputColor;
 
             if (esNum(nuevaGPU.inputSetting.coff.value)){
               nuevaGPU.inputSetting.coff.style.backgroundColor=green;
@@ -340,6 +352,15 @@ function colorear(gpu,stableColor){
             }else{
               nuevaGPU.inputSetting.mmoff.style.color=`white`;
               nuevaGPU.inputSetting.mmoff.style.backgroundColor=stableColor;
+            };
+            if (esNum(nuevaGPU.inputSetting.plimit.value)){
+              nuevaGPU.inputSetting.plimit.style.backgroundColor=green;
+                if (nuevaGPU.inputSetting.plimit.value>MAXOC){
+                  nuevaGPU.inputSetting.plimit.style.backgroundColor=red;
+              }
+            }else{
+              nuevaGPU.inputSetting.plimit.style.color=`white`;
+              nuevaGPU.inputSetting.plimit.style.backgroundColor=stableColor;
             };
 }
 
