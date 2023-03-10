@@ -7,6 +7,7 @@ const plimit=`--setpl `;
 let cantidadGPU=6;
 let MultiGPU=true;
 let gpusdisponibles;
+let delayexec=0;
 const red=`#ff4d4d`;
 const green= `hsla(150, 100%, 40%, 0.7)`;
 const stableColor=`black`;
@@ -16,7 +17,7 @@ const MAXOC=100000;
 let colorDestello=`rgba(255, 255, 255, 0.4)`;
 let copyColor=`rgba(255, 255, 255, 0.4)`;
 let timerisRunning=false;
-
+let echocheck=document.getElementById(`echocheck`);
 function limpiar(identificacion){
   let caja=document.getElementById(`cajaOC`);
   let gpu = document.getElementById(identificacion);
@@ -134,26 +135,36 @@ function createElements(cantidad) {
         nuevaGPU.cargada=false;
         if (n==0){
           let miSubdiv=document.createElement(`div`);
+          let delayoc=document.createElement(`div`);
+          let delayvalue=document.createElement(`input`);
+          delayvalue.placeholder=`Delay(s)`;
+          delayvalue.type=`number`;
+          delayvalue.className=`inputs`;
+          delayvalue.id=`delay`;
           let descripcioncheck=document.createElement(`span`);
           descripcioncheck.textContent=`Check/uncheck All`;
-          descripcioncheck.id=`checktexto`
+          descripcioncheck.id=`checktexto`;
           let checkall=document.createElement(`input`);
+          let delaydescription=document.createElement(`span`);
+          delaydescription.textContent=`Set delay(s) before OC/script:`;
+          delaydescription.id=`delaytexto`;
           checkall.type=`checkbox`;
           checkall.id=`todochange`;
           checkall.className="inputs";
-          miSubdiv.id=`subdiv`
+          miSubdiv.id=`subdiv`;
+          delayoc.id=`delayoc`;
+          
+          miDiv.appendChild(delayoc);
+          delayoc.appendChild(delaydescription);
+          delayoc.appendChild(delayvalue);
+          miDiv.appendChild(miSubdiv);
+          miSubdiv.appendChild(descripcioncheck);
+          miSubdiv.appendChild(checkall);
           
           checkall.addEventListener(`change`,function(){
             changeCheckAll();
             createFinalOC(gpusdisponibles);
-            
-                
-            
           })
-          miDiv.appendChild(miSubdiv);
-          miSubdiv.appendChild(descripcioncheck);
-          miSubdiv.appendChild(checkall);
-
         }
         
         miDiv.appendChild(nuevaGPU);
@@ -383,6 +394,11 @@ function createFinalOC(checkfromgpu){
   checkfromgpu=checkedIdArray(checkfromgpu);
   let ocTextBox=document.getElementById(`cajaOC`);
   if (checkfromgpu.length>0){
+    delayexec=document.getElementById(`delay`).value;
+        let sleepcommand=``;
+        if (okRange(delayexec,1,99999)){
+          sleepcommand=`sleep ${delayexec} && `;
+        }
       for (let i=0;i<checkfromgpu.length;i++){
         let gpuid=document.getElementById(`GPU${checkfromgpu[i]}`);
         determinarOC(gpuid.id);
@@ -393,19 +409,20 @@ function createFinalOC(checkfromgpu){
         commandString=commandString+gpuid.nvtool;
         };
       finalOC=commandString;
-      
       let echo=document.getElementById(`echocheck`);
       if (echo.checked){
-        ocTextBox.value=`echo "`+finalOC+`" > /hive/miners/nv_oc.sh && chmod +x /hive/miners/nv_oc.sh`;
+        ocTextBox.value=`echo "${sleepcommand}`+finalOC+`" > /hive/miners/nv_oc.sh && chmod +x /hive/miners/nv_oc.sh`;
       }else{
-        ocTextBox.value=finalOC;
+        ocTextBox.value=`${sleepcommand}`+finalOC;
       }
       
   }else{
       ocTextBox.value=``;
   }
   
-    
+function valuedelay(){
+  delayexec=document.getElementById(`delay`).value;
+};
   
 };
 

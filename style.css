@@ -28,31 +28,76 @@ p{
     color:rgba(255, 255, 255, 0.753);
 }
 #checktexto{
+    margin-left: 4px;
     font-size: 15px;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    color: rgba(255, 255, 255, 0.589);
+    color: rgba(255, 255, 255, 0.836);
     position: relative;
 
-    display: inline-block;
+    display: inline-flexbox;
     text-align: right;
    
 }
 #todochange{
     background-color: #00000080;
-
     height: 15px;
     width: 15px;
     position: relative;
     margin-top:0px;
     text-align: right;
-    display: inline-block;
+    display: inline-flexbox;
+}
+#delay{
+    width:70px;
+    margin-right: 2px;
+    margin-top: 2px;
+    margin-left:2px;
+    height:25px;
+    align-self: right;
+    position:relative;
+    display:inline-block;
+    align-items: right;
+    color:white;
+}
+#delaytexto{
+    font-size: medium;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color:rgba(255, 255, 255, 0.822);
+    height:30px;
+    margin-right: 0px;
+    top: 5px;
+    text-align: right;
+    position:relative;
+    display:inline-block;
+}
+#delay,#delaytexto{
+    margin-top: 5px;
+    
+    margin-bottom:15px;
+    
+}
+#delayoc{
+    background-image: linear-gradient(to left, rgba(51, 100, 100, 0.637) 20%, rgba(51, 100, 100, 0) 60% );
+    background-size: 100% 50%;
+    margin-bottom: 2px;
+    background-size: 100% 50%;
+    height:40px;
+    justify-self: right;
+    justify-content: right;
+    text-align: right;
+    align-items: right;
+    display:flex;
+    position:relative;
 }
 #subdiv{
-    
-    background-image: linear-gradient(to left, rgba(0, 0, 0, 0.829), #00000000 20%) ;
+    margin-bottom: 10px;
+    display:-ms-flexbox;
+    background-image: linear-gradient(to left, rgba(77, 77, 77, 0.432) 20%, #00000000 60%);
     position:relative;
-    
-    text-align: right;
+    justify-content: right;
+    justify-items: right;
+    align-items: right;
+    text-align:right;
 }
 #direcciones{
     margin-top:30px ;
@@ -364,6 +409,7 @@ button{
     padding-bottom: 1%;
 }
 #gpu{
+    
     z-index: 1;
     text-align: center;
     max-width: 85%;
@@ -425,7 +471,8 @@ button{
     z-index: 1;
 }
 #tabla{
-    margin-top: 10px;
+    top:80px;
+    margin-top: 0px;
     position:relative;
 }
 
